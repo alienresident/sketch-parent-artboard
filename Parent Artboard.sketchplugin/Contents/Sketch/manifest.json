@@ -1,0 +1,43 @@
+{
+  "author" : "Mark Reilly",
+  "commands" : [
+    {
+      "script" : "AllArtboards.cocoascript",
+      "name" : "Select All Artboards on Page",
+      "handlers" : {
+        "run" : "onRun"
+      },
+      "identifier" : "allartboards"
+    },    
+    {
+      "script" : "ReverseLayers.cocoascript",
+      "name" : "Reverse Layer Ordering",
+      "identifier" : "reverselayers",
+      "handlers" : {
+        "run" : "onRun"
+      },
+    },
+    {
+      "script" : "ParentArtboard.cocoascript",
+      "name" : "Create Parent Artboard",
+      "identifier": "parentartboard",
+      "handlers" : {
+        "run" : "onRun"
+      },
+      "shortcut": ""
+    }
+  ],
+  "menu" : {
+    "title" : "Parent Artboard",
+    "items" : [
+      "allartboards",
+      "reverselayers",
+      "parentartboard"
+    ]
+  },
+  "identifier" : "com.markreilly.sketchplugins",
+  "version" : "1.0",
+  "description" : "Parent Artboard gets the height and width of all the Artboards on a page and creates a Parent Artboard for exporting.",
+  "authorEmail" : "mark@alienresident.net",
+  "name" : "Parent Artboard"
+}
