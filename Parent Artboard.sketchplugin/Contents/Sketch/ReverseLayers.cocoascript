@@ -1,5 +1,5 @@
 // Orginal file https://github.com/getflourish/Sketch-Mate/blob/master/Sketch%20Mate.sketchplugin/Contents/Sketch/Sort/Reverse%20Layer%20Order.js
-// Added to this Plugin for convienence 
+// Added to this Plugin for convenience. 
 // Reverse Layer Ordering
 
 // This plugin reverses the positions of selected layers.
