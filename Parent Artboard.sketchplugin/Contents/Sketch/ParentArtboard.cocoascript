@@ -1,0 +1,91 @@
+@import 'common.js'
+
+
+var onRun = function(context) {
+  // log('This is Mark\x27s ParentArtboard script.');
+
+  var doc = context.document,
+    initialPage = [doc currentPage],
+    artboards = [initialPage artboards]
+
+    number_artboards = [artboards count]
+    // log('Number of Artboards is ' + number_artboards)
+    
+    var heights = [];
+    var widths = [];
+    var xPositions = [];
+    var yPositions = [];
+      
+    for (var i = 0; i < number_artboards; i++) {
+      var a = artboards[i];
+      heights[i] = [[a frame] height];
+      widths[i] = [[a frame] width];
+      xPositions[i] = [[a absoluteRect] minX];
+      yPositions[i] = [[a absoluteRect] minY];
+    }
+
+    // log('Heights:' + heights);
+    // log('Widths:' + widths);
+    // log('X Positions:' + xPositions);
+    // log('Y Postions:' + yPositions);
+
+    // add all the Artboards heights together
+    var sumHeights = heights.reduce(add, 0);
+    // log('Total Heights: ' + sumHeights);
+
+    // Check to see if the X positions are aligned
+    var sameWidth = widths.reduce(function(a,b){
+      if (a.indexOf(b) < 0 ) a.push(b);
+      return a;
+    },[]);
+    // log('Width: ' + sameWidth);
+
+    if(sameWidth.length > 1) {
+      alert("Mixed Artboards!", "Your Artboards don\x27t have the same width!");
+    }
+    // find the highest Y position
+    var minYPos = Math.min.apply(null, yPositions);
+    // log('Min Y: ' + minYPos);
+
+    // Check to see if the X positions are aligned
+    var alignedX = xPositions.reduce(function(a,b){
+      if (a.indexOf(b) < 0 ) a.push(b);
+      return a;
+    },[]);
+
+    // Alert if the X positions are not aligned
+    if(alignedX.length > 1) {
+      alert("Artboards Misaligned!", "Your Artboards don\x27t have the same X position!");
+    }
+
+    createNewArtboardFromArtboards(sameWidth, sumHeights, xPositions, yPositions)
+
+  function createNewArtboardFromArtboards(width, height, xPos, yPos) {
+
+    newArtboardWidth = width;
+    newArtboardHeight = height;
+    newArtboardX = xPos;
+    newArtboardY = yPos;
+
+    newArtboard = [MSArtboardGroup new]
+    [newArtboard setName:"Artboard to Export"]
+    newArtboardFrame = [newArtboard frame]
+    [newArtboardFrame setWidth:newArtboardWidth]
+    [newArtboardFrame setHeight:newArtboardHeight]
+    [newArtboardFrame setX:newArtboardX]
+    [newArtboardFrame setY:newArtboardY]
+
+    // Make New Artboard Exportable and set PNG Format
+    var format = "png";
+    makeExportable(newArtboard, format);
+
+    page = [doc currentPage]
+    [page addLayers:[NSArray arrayWithObjects:newArtboard]]
+
+    // Select new layer
+    newArtboard.select_byExpandingSelection(true, false);
+    [NSApp sendAction:'moveToBack:' to:nil from:doc]
+    
+    return newArtboard
+  }
+};
