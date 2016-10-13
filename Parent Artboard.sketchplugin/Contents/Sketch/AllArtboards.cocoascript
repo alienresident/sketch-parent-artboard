@@ -1,3 +1,5 @@
+// Original File https://github.com/bomberstudios/sketch-commands/blob/master/Sketch%20Commands.sketchplugin/Contents/Sketch/Select/All%20Artboards%20in%20Page.cocoascript
+// Added to this Plugin for convenience. 
 // Selects all the Artboards on a single Page
 
 var onRun = function(context) {
