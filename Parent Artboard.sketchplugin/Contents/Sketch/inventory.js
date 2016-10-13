@@ -1,4 +1,4 @@
-Orginal file https://github.com/getflourish/Sketch-Mate/blob/master/Sketch%20Mate.sketchplugin/Contents/Sketch/inventory.js
+// Orginal file https://github.com/getflourish/Sketch-Mate/blob/master/Sketch%20Mate.sketchplugin/Contents/Sketch/inventory.js
 // Namespaced library of functions common across multiple plugins
 var com = com || {};
 
