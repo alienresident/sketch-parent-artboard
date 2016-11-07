@@ -31,23 +31,14 @@ var onRun = function(context) {
 
     // add all the Artboards heights together
     var sumHeights = heights.reduce(add, 0);
-    // log('Total Heights: ' + sumHeights);
-
-    // Check to see if the X positions are aligned
     var sameWidth = widths.reduce(function(a,b){
       if (a.indexOf(b) < 0 ) a.push(b);
       return a;
     },[]);
-    // log('Width: ' + sameWidth);
 
     if(sameWidth.length > 1) {
-      alert("Mixed Artboards!", "Your Artboards don\x27t have the same width!");
     }
-    // find the highest Y position
-    var minYPos = Math.min.apply(null, yPositions);
-    // log('Min Y: ' + minYPos);
 
-    // Check to see if the X positions are aligned
     var alignedX = xPositions.reduce(function(a,b){
       if (a.indexOf(b) < 0 ) a.push(b);
       return a;
@@ -55,10 +46,16 @@ var onRun = function(context) {
 
     // Alert if the X positions are not aligned
     if(alignedX.length > 1) {
-      alert("Artboards Misaligned!", "Your Artboards don\x27t have the same X position!");
+      alert("Artboards Misaligned!", "Your artboards don\x27t have the same X position!");
+    } else {
+      singleXPos = alignedX;
     }
+    //log('singleXPos: ' + singleXPos );
+    // find the highest Y position
+    var minYPos = Math.min.apply(null, yPositions);
+    var singleYPos = minYPos;
 
-    createNewArtboardFromArtboards(sameWidth, sumHeights, xPositions, yPositions)
+    createNewArtboardFromArtboards(sameWidth, sumHeights, singleXPos, singleYPos);
 
   function createNewArtboardFromArtboards(width, height, xPos, yPos) {
 
