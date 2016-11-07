@@ -10,35 +10,42 @@ var onRun = function(context) {
 
     number_artboards = [artboards count]
     // log('Number of Artboards is ' + number_artboards)
-    
+   
+    var widths = []; 
     var heights = [];
-    var widths = [];
     var xPositions = [];
     var yPositions = [];
       
     for (var i = 0; i < number_artboards; i++) {
       var a = artboards[i];
-      heights[i] = [[a frame] height];
       widths[i] = [[a frame] width];
+      heights[i] = [[a frame] height];
       xPositions[i] = [[a absoluteRect] minX];
       yPositions[i] = [[a absoluteRect] minY];
     }
-
-    // log('Heights:' + heights);
     // log('Widths:' + widths);
+    // log('Heights:' + heights);
     // log('X Positions:' + xPositions);
     // log('Y Postions:' + yPositions);
 
-    // add all the Artboards heights together
-    var sumHeights = heights.reduce(add, 0);
+    // Dedupe the widths of the Artboards
     var sameWidth = widths.reduce(function(a,b){
       if (a.indexOf(b) < 0 ) a.push(b);
       return a;
     },[]);
 
     if(sameWidth.length > 1) {
+      alert("Mixed width artboards!", "Your artboards don\x27t have the same width!");
     }
 
+    // Add all the Artboards heights together
+    var sumHeights = heights.reduce(add, 0);
+    // log('Total Heights: ' + sumHeights);
+
+    // Declare single X Position as a number
+    var singleXPos = 0;
+
+   // Check to see if the X positions are aligned
     var alignedX = xPositions.reduce(function(a,b){
       if (a.indexOf(b) < 0 ) a.push(b);
       return a;
@@ -51,6 +58,7 @@ var onRun = function(context) {
       singleXPos = alignedX;
     }
     //log('singleXPos: ' + singleXPos );
+
     // find the highest Y position
     var minYPos = Math.min.apply(null, yPositions);
     var singleYPos = minYPos;
